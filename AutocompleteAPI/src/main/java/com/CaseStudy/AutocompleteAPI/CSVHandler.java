@@ -86,8 +86,8 @@ public class CSVHandler {
     /**
      * Method findColumnIndex gets the index of the compare-column e.g "NAME", in case of changes in the column order.
      *
-     * @param - String[] header holds a string array with all column headings of the csv
-     * @return - int number of column index
+     * @param header holds a string array with all column headings of the csv
+     * @return i number of column index
      **/
     private static int findColumnIndex(String[] header) {
 
