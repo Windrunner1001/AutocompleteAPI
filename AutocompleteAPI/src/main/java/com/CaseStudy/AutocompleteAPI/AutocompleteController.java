@@ -16,7 +16,7 @@ public class AutocompleteController {
     @GetMapping({"/auto-complete/", "/auto-complete/{userInput}"})
     public Response compareData(@PathVariable Optional<String> userInput) throws IOException {
 
-          //start timer
+        //start timer
         long startTime = System.currentTimeMillis();
 
         //list holding all matches
@@ -27,13 +27,17 @@ public class AutocompleteController {
 
 
         //only if there is a user input, get the matching values, else throw error
-        if (userInput.isPresent()){
+        if (userInput.isPresent()) {
             String input = userInput.get();
 
             //if there is no user input, throw error
-            if (input.length() < 3){throw new UserInputTooShort();}
+            if (input.length() < 3) {
+                throw new UserInputTooShort();
+            }
             //if there are any digits, throw error
-            if (Helper.containsDigits(input)){throw new UserInputNotAlphabetic();}
+            if (Helper.containsDigits(input)) {
+                throw new UserInputNotAlphabetic();
+            }
 
             // Compare user input to compareColumn (currently the column "NAME"). In case of match, add to the result.
             for (String[] row : csvData) {
@@ -41,7 +45,7 @@ public class AutocompleteController {
                     result.add(row);
                 }
             }
-        } else{
+        } else {
             throw new NoUserInput();
         }
 

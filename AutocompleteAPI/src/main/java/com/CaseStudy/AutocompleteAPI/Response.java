@@ -18,7 +18,7 @@ public class Response {
     public Response(List<String[]> result) {
         List<String> station_list = new ArrayList<>();
         for (String[] match : result) {
-            station_list.add((match[0] + " - " + match[1] + " - " + match[2]).toString());
+            station_list.add((match[0] + " - " + match[1] + " - " + match[2]));
         }
         setStation_list(station_list);
         setNumber_of_stations_found(String.valueOf(result.size()));

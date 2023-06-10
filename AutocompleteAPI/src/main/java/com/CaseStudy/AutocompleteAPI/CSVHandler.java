@@ -5,11 +5,10 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-import org.springframework.util.ResourceUtils;
+import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.List;
 
 
@@ -18,8 +17,9 @@ import java.util.List;
  **/
 public class CSVHandler {
 
+
     private final static String index = "NAME";
-    private final static String path = "classpath:D_Bahnhof_2016_01_alle.csv";
+    private final static String path = "D_Bahnhof_2016_01_alle.csv";
     private static int indexColumn;
 
     public static String getPath() {
@@ -41,20 +41,23 @@ public class CSVHandler {
 
     /**
      * Method readCsvFile reads a csv file in the location path, iterates all rows and stores them in a ArrayList as Strings.
+     *
      * @return - ArrayList with all csv-rows
      **/
     public static List<String[]> readCsvFile() throws IOException {
 
-        List<String[]> csvData;
 
-        File csvFile = ResourceUtils.getFile(getPath());
-        FileReader filereader = new FileReader(csvFile);
+        List<String[]> csvData;
         String[] header;
 
         try {
+            //get path and fill inputStream
+            ClassPathResource resource = new ClassPathResource(getPath());
+            InputStream inputStream = resource.getInputStream();
+
             //the csv contains semicolons instead of comma, change separator within the builder
             CSVParser parser = new CSVParserBuilder().withSeparator(';').build();
-            CSVReader reader = new CSVReaderBuilder(filereader)
+            CSVReader reader = new CSVReaderBuilder(new InputStreamReader(inputStream))
                     .withCSVParser(parser)
                     .build();
 
@@ -82,6 +85,8 @@ public class CSVHandler {
 
     /**
      * Method findColumnIndex gets the index of the compare-column e.g "NAME", in case of changes in the column order.
+     *
+     * @param - String[] header holds a string array with all column headings of the csv
      * @return - int number of column index
      **/
     private static int findColumnIndex(String[] header) {

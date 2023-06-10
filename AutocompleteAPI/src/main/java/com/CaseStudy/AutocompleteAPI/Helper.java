@@ -8,7 +8,12 @@ import java.util.regex.Pattern;
 
 public class Helper {
 
-    /**compares to strings without any case-sensitivity**/
+    /**
+     * compares to strings without any case-sensitivity
+     * @param - String source contains the first compare string
+     * @param - String target contains the second string, the first one needs to be compared too
+     * @return - boolean value - if true, both strings match, if false not
+     **/
     public static boolean containsIgnoreCase(String source, String target) {
         if (source == null || target == null) {
             return false;
@@ -16,7 +21,11 @@ public class Helper {
         return source.toLowerCase().contains(target.toLowerCase());
     }
 
-    /**checks if a string has any digits with help of regex**/
+    /**
+     * checks if a string has any digits with help of regex
+     * @param - String input contains the string which should be checked
+     * @return - boolean containsNumbers - true if string contains digits, false if not
+     **/
     public static boolean containsDigits(String input) {
         boolean containsNumbers = Pattern.compile(".*\\d.*").matcher(input).matches();
         return containsNumbers;
